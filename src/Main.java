@@ -19,45 +19,51 @@ public class Main {
             if (!scanner.nextLine().toUpperCase().equals("S")) {
                 break;
             }
+            for (int i = 0; i < 50; i++) {
+                System.out.println();
+            }
 
         } while (true);
 
         System.out.println("Programa terminado.");
     }
 
+
+
+
+
+
     public static boolean validarCadena(String cadena) {
         // Verificar la longitud mínima de la cadena
         if (cadena.length() < 6) {
-            System.out.println("Longitud de cadena");
+            System.out.println("3");
             return false;
         }
 
-        // Verificar que comience y termine con números pares
+        // Verificar que comience con números pares
         if (!esDigitoPar(cadena.charAt(0)) || !esDigitoPar(cadena.charAt(cadena.length() - 1))) {
-            System.out.println("Numero par inicio");
+            System.out.println("2");
 
             return false;
         }
 
-        // Verificar la presencia de los signos $ o &
-        if (cadena.contains("$") && !cadena.contains("&")) {
-            System.out.println("Signos");
-        }
-
-        // Dividir la cadena en dos secciones separadas por el último signo encontrado
-        String[] secciones = cadena.split("[$&]");
+        // Dividir la cadena en dos secciones separadas por un número seguido de una letra o un número seguido de un signo
+        String[] secciones = cadena.split("(?<=\\d)(?=[A-Z$&])|(?<=[A-Z$&])(?=\\d)");
         if (secciones.length != 2) {
             System.out.println("4");
-
             return false;
         }
 
-        // Verificar que la primera sección comience con una vocal
+        // Verificar que la segunda sección comience con una vocal
         if (!esVocalMayuscula(secciones[1].charAt(0))) {
-            System.out.println("5");
-
-            return false;
+            System.out.println("primero");
+        }else{
+            if (!esVocalMayuscula(secciones[1].charAt(1))) {
+                System.out.println("segundo");
+                return false;
+            }
         }
+
 
         // Verificar que la segunda sección termine con una consonante y tenga al menos 2 letras
         if (secciones[1].length() < 2 || !esConsonanteMayuscula(secciones[1].charAt(secciones[1].length() - 1))) {
@@ -81,9 +87,13 @@ public class Main {
             return false;
         }
 
+
         // Si todas las condiciones se cumplen, la cadena es válida
+        System.out.println(secciones[0]+ "   Secciones  " + secciones[1]);
         return true;
     }
+
+
 
     public static boolean esDigitoPar(char c) {
         int digito = c - '0';
