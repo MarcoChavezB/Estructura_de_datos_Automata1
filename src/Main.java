@@ -4,34 +4,60 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
+        int decision;
 
         do {
-            System.out.print("Cadena a validar: ");
-            input = scanner.nextLine().toUpperCase();
+            System.out.println("----------- Menú -----------");
+            System.out.println("[1]. Ingresar cadena");
+            System.out.println("[2]. Creditos");
+            System.out.println("[3]. Salir");
+            System.out.print("Ingrese su elección: ");
+            decision = Integer.parseInt(scanner.nextLine());
 
-            if (validarCadena(input)) {
-                System.out.println("Cadena válida.");
-            } else {
-                System.out.println("Cadena inválida.");
+            switch (decision) {
+                case 1:
+                    clearScreen();
+                    System.out.print("Cadena a validar: ");
+                    input = scanner.nextLine().toUpperCase();
+
+                    if (validarCadena(input)) {
+                        System.out.println("Cadena válida.");
+                    } else {
+                        System.out.println("Cadena inválida.");
+                    }
+                    break;
+
+                case 2:
+                    clearScreen();
+                    System.out.println("----------- Créditos -----------");
+                    System.out.println("Nombre: Marco Antonio Chavez Baltierrez || 2C || 22170149");
+                    System.out.println("Nombre: Jesus Alberto Ramirez Gonzalez  || 2C || 22170147");
+                    break;
+
+                case 3:
+                    System.out.println("Saliendo del programa.");
+                    return;
+
+                default:
+                    System.out.println("Opción no válida.");
+                    break;
             }
 
-            System.out.print("Seguir? (S/N): ");
-            if (!scanner.nextLine().toUpperCase().equals("S")) {
+            System.out.print("¿Desea continuar? (S/N): ");
+            if (!scanner.nextLine().trim().equalsIgnoreCase("S")) {
                 break;
             }
-            for (int i = 0; i < 50; i++) {
-                System.out.println();
-            }
-
+            clearScreen();
         } while (true);
 
         System.out.println("Programa terminado.");
     }
 
-
-
-
-
+    public static void clearScreen() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
 
     public static boolean validarCadena(String cadena) {
         // Verificar la longitud mínima de la cadena
@@ -56,7 +82,6 @@ public class Main {
 
         // Verificar que la segunda sección comience con una vocal
         if (!esVocalMayuscula(secciones[1].charAt(0))) {
-            System.out.println("primero");
         }else{
             if (!esVocalMayuscula(secciones[1].charAt(1))) {
                 System.out.println("segundo");
@@ -89,11 +114,10 @@ public class Main {
 
 
         // Si todas las condiciones se cumplen, la cadena es válida
-        System.out.println(secciones[0]+ "   Secciones  " + secciones[1]);
+        System.out.println("Sección 1: " + secciones[0]);
+        System.out.println("Sección 2: " + secciones[1]);
         return true;
     }
-
-
 
     public static boolean esDigitoPar(char c) {
         int digito = c - '0';
@@ -107,4 +131,5 @@ public class Main {
     public static boolean esConsonanteMayuscula(char c) {
         return Character.isLetter(c) && !esVocalMayuscula(c);
     }
+
 }
