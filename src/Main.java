@@ -81,13 +81,11 @@ public class Main {
         }
 
         // Verificar que la segunda sección comience con una vocal
-        if (!esVocalMayuscula(secciones[1].charAt(0))) {
-        }else{
-            if (!esVocalMayuscula(secciones[1].charAt(1))) {
-                System.out.println("segundo");
+            if (!esVocalMayuscula(secciones[1].charAt(0))) {
+                System.out.println("segundo" + secciones[1].charAt(1) + secciones[1].charAt(0));
                 return false;
             }
-        }
+
 
 
         // Verificar que la segunda sección termine con una consonante y tenga al menos 2 letras
