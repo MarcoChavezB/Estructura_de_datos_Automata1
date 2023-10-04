@@ -8,7 +8,7 @@ public class Main {
 
         do {
             System.out.println("----------- Menú -----------");
-            System.out.println("[1]. Ingresar cadena");
+            System.out.println("[1]. Capturar cadena de entrada");
             System.out.println("[2]. Creditos");
             System.out.println("[3]. Salir");
             System.out.print("Ingrese su elección: ");
@@ -30,8 +30,9 @@ public class Main {
                 case 2:
                     clearScreen();
                     System.out.println("----------- Créditos -----------");
-                    System.out.println("Nombre: Marco Antonio Chavez Baltierrez || 2C || 22170149");
-                    System.out.println("Nombre: Jesus Alberto Ramirez Gonzalez  || 2C || 22170147");
+                    System.out.println("Estructura de Datos Aplicadas");
+                    System.out.println("Nombre: Marco Antonio Chavez Baltierrez || 4C || 22170149");
+                    System.out.println("Nombre: Jesus Alberto Ramirez Gonzalez  || 4C || 22170147");
                     break;
 
                 case 3:
@@ -60,42 +61,31 @@ public class Main {
     }
 
     public static boolean validarCadena(String cadena) {
-        // Verificar la longitud mínima de la cadena
         if (cadena.length() < 6) {
-            System.out.println("3");
+            System.out.println("La cadena debe tener al menos 6 caracteres");
             return false;
         }
 
-        // Verificar que comience con números pares
-        if (!esDigitoPar(cadena.charAt(0)) || !esDigitoPar(cadena.charAt(cadena.length() - 1))) {
-            System.out.println("2");
-
+        if (!esDigitoPar(cadena.charAt(0))) {
+            System.out.println("El primer carácter debe ser un dígito par");
             return false;
         }
 
-        // Dividir la cadena en dos secciones separadas por un número seguido de una letra o un número seguido de un signo
         String[] secciones = cadena.split("(?<=\\d)(?=[A-Z$&])|(?<=[A-Z$&])(?=\\d)");
         if (secciones.length != 2) {
-            System.out.println("4");
             return false;
         }
 
-        // Verificar que la segunda sección comience con una vocal
-            if (!esVocalMayuscula(secciones[1].charAt(0))) {
-                System.out.println("segundo" + secciones[1].charAt(1) + secciones[1].charAt(0));
-                return false;
-            }
+        if (!(esVocalMayuscula(secciones[1].charAt(0)) || esVocalMayuscula(secciones[1].charAt(1)))) {
+            System.out.println("La segunda sección debe comenzar con al menos una vocal mayúscula");
+            return false;
+        }
 
-
-
-        // Verificar que la segunda sección termine con una consonante y tenga al menos 2 letras
         if (secciones[1].length() < 2 || !esConsonanteMayuscula(secciones[1].charAt(secciones[1].length() - 1))) {
-            System.out.println("6");
-
+            System.out.println("La segunda sección debe terminar con una consonante y tener al menos 2 letras");
             return false;
         }
 
-        // Contar la cantidad de dígitos en la cadena
         int contadorDigitos = 0;
         for (char c : cadena.toCharArray()) {
             if (Character.isDigit(c)) {
@@ -103,17 +93,20 @@ public class Main {
             }
         }
 
-        // Verificar que haya al menos 4 dígitos
         if (contadorDigitos < 4) {
-            System.out.println("7");
-
+            System.out.println("Debe haber al menos 4 dígitos en la cadena");
             return false;
         }
 
+        int lastIndex = secciones[0].length() - 1;
+        String lastSection = secciones[0];
+        char lastChar = lastSection.charAt(lastIndex);
 
-        // Si todas las condiciones se cumplen, la cadena es válida
-        System.out.println("Sección 1: " + secciones[0]);
-        System.out.println("Sección 2: " + secciones[1]);
+        if (esDigitoPar(lastChar)) {
+            System.out.println("El último carácter de la primera sección no debe ser un dígito par");
+            return false;
+        }
+
         return true;
     }
 
